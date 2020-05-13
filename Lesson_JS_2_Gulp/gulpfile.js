@@ -3,7 +3,6 @@
 // =============================
 let project_folder = "dist";
 let source_folder = "#src";
-let fs = require("fs");
 
 let path = {
   build: {
@@ -32,7 +31,10 @@ let path = {
 // =============================
 // ------------Змінні-----------
 // =============================
-let { src, dest } = require("gulp"),
+let {
+  src,
+  dest
+} = require("gulp"),
   gulp = require("gulp"),
   browsersync = require("browser-sync").create(),
   fileinclude = require("gulp-file-include"),
@@ -111,11 +113,9 @@ function images() {
     .pipe(
       imagemin({
         progressive: true,
-        svgoPlugins: [
-          {
-            removeViewBox: false,
-          },
-        ],
+        svgoPlugins: [{
+          removeViewBox: false,
+        }, ],
         interlaced: true,
         optimizationLevel: 3, //0 to 7
       })
@@ -144,8 +144,8 @@ function clean(params) {
 // =============================
 // ----------Виконання----------
 // =============================
-let build = gulp.series(clean, gulp.parallel(js, css, html, images, fonts));
-let watch = gulp.parallel(build, watchFiles, browserSync);
+let build = gulp.series(clean, gulp.parallel(js, css, html, images, fonts), browserSync);
+let watch = gulp.parallel(build, watchFiles);
 
 exports.fonts = fonts;
 exports.images = images;
